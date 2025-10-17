@@ -1,12 +1,10 @@
-set search_path = 'garage', 'tn911', 'public'; 
-
-DROP TABLE IF EXISTS check_centerlines_predir_tbl; 
-CREATE TABLE check_centerlines_predir_tbl as (
+DROP TABLE IF EXISTS garage.check_centerlines_predir_tbl; 
+CREATE TABLE garage.check_centerlines_predir_tbl as (
 select 
     predir, 
     count(*) 
 from 
-    centerlines 
+    tn911.centerlines 
 group by
     predir
 order by 

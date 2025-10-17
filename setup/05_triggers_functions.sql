@@ -1,3 +1,6 @@
+--=================================================================================================
+--address point
+--=================================================================================================
 --OIRIDs that need to the county changed
 --as an example you would need 'HAMILTON_12345' and not 'COUNTY_12345'
 
@@ -142,6 +145,10 @@ CREATE TRIGGER update_address_attdate before update
    EXECUTE PROCEDURE tn911.address_attdate();
 
 
+--=================================================================================================
+--centerlines
+--=================================================================================================
+
 /* next up is Centerlines */ 
 
 
@@ -255,7 +262,10 @@ LANGUAGE PLPGSQL;
 CREATE TRIGGER update_centerlines_street BEFORE insert or update
     ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
     tn911.centerlines_func_street();
-    
+
+--=================================================================================================
+--ESN
+--=================================================================================================
 /*esn updates*/ 
 
 CREATE OR REPLACE FUNCTION tn911.esn_func_geodate()
@@ -274,6 +284,9 @@ CREATE TRIGGER update_esn_geodate BEFORE update
     EXECUTE PROCEDURE 
     tn911.esn_func_geodate();
 
+--=================================================================================================
+--Notifications which need to be added to QGIS 
+--=================================================================================================
 --Set up notify for QGIS 
 
 CREATE OR REPLACE FUNCTION public.notify_qgis() RETURNS trigger
