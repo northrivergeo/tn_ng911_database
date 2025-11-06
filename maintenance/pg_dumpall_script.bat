@@ -15,4 +15,4 @@ set BACKUP_FILE=henderson_%datestr%.backup
 echo backup file name is %BACKUP_FILE%
 SET PGPASSWORD=Angelfury0!
 echo on
-C:\"Program Files"\PostgreSQL\ver\bin\pg_dumpall.exe -h localhost -p 5432 -U elh1964 -f D:\PGDB_BACKUP\%BACKUP_FILE% henderson911
+C:\"Program Files"\PostgreSQL\ver\bin\pg_dumpall.exe -h localhost -p 5432 -U USER -f D:\PGDB_BACKUP\%BACKUP_FILE% henderson911
