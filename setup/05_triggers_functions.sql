@@ -174,12 +174,13 @@ CREATE OR REPLACE FUNCTION tn911.centerline_func_geodate()
 RETURNS TRIGGER AS $$
 BEGIN
    NEW.geodate = current_timestamp;
+   RETURN NEW; 
 END;
 $$
 LANGUAGE PLPGSQL;
 
 CREATE TRIGGER update_centerline_geodate BEFORE insert
-    ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
+    ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
     tn911.centerline_func_geodate();
 
 
