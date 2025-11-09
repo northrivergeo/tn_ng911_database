@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION trg_create_set_owner()
+CREATE OR REPLACE FUNCTION tn_create_set_owner()
  RETURNS event_trigger
  LANGUAGE plpgsql
 AS $$
@@ -11,8 +11,8 @@ BEGIN
 END;
 $$;
 
-CREATE EVENT TRIGGER trg_create_set_owner
+CREATE EVENT TRIGGER tn_set_owner
  ON ddl_command_end
  WHEN tag IN ('CREATE TABLE')
- EXECUTE PROCEDURE trg_create_set_owner();
+ EXECUTE PROCEDURE tn_create_set_owner();
 

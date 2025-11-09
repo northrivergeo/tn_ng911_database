@@ -7,7 +7,6 @@ CREATE TABLE tn911.address_points (
 	id serial primary key, 
 	geom geometry (point, 2274), 
 	oirid varchar(20), 
-	segid varchar(25), 
 	r_segid varchar(25), 
 	a_segid varchar(25), 
 	seg_side varchar(1) references tn911.segside_tbl(seg_side), 
