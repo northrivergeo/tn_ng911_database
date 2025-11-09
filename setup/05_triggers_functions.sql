@@ -27,6 +27,7 @@ CREATE OR REPLACE FUNCTION tn911.address_func_gpsdate()
 RETURNS TRIGGER AS $$
 BEGIN
    NEW.gpsdate = current_timestamp;
+   RETURN NEW; 
 END;
 $$
 LANGUAGE PLPGSQL;
