@@ -1,8 +1,8 @@
 --=================================================================================================
 --address point
---=================================================================================================
 --OIRIDs that need to the county changed
 --as an example you would need 'HAMILTON_12345' and not 'COUNTY_12345'
+--=================================================================================================
 
 /*address oirid*/ 
 
@@ -16,6 +16,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_address_oirid on address_points; 
 CREATE TRIGGER update_address_oirid BEFORE insert
     ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
     tn911.address_func_oirid();
@@ -32,6 +33,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_address_gpsdate on tn911.address_points; 
 CREATE TRIGGER update_address_gpsdate BEFORE insert
     ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
     tn911.address_func_gpsdate();
@@ -39,20 +41,22 @@ CREATE TRIGGER update_address_gpsdate BEFORE insert
 
 --Updates ESN in address_points table
 
- CREATE OR REPLACE FUNCTION tn911.address_func_esn()
- RETURNS TRIGGER AS $$ 
- BEGIN
-    NEW.esn := (select esn from tn911.esn where st_within(new.geom, geom)); 
-    RETURN NEW;
- END;
- $$
+CREATE OR REPLACE FUNCTION tn911.address_func_esn()
+RETURNS TRIGGER AS $$ 
+BEGIN
+   NEW.esn := (select esn from tn911.esn where st_within(new.geom, geom)); 
+   RETURN NEW;
+END;
+$$
 LANGUAGE PLPGSQL;
- 
- CREATE TRIGGER update_address_esn 
- BEFORE insert or update
-     ON tn911.address_points FOR EACH ROW 
-     EXECUTE PROCEDURE 
-     tn911.address_func_esn();
+
+
+DROP TRIGGER IF EXISTS update_address_esn on tn911.address_points; 
+CREATE TRIGGER update_address_esn 
+BEFORE insert or update
+    ON tn911.address_points FOR EACH ROW 
+    EXECUTE PROCEDURE 
+    tn911.address_func_esn();
 
 --Updates geodate in address_points table
 
@@ -65,6 +69,7 @@ END;
 $$
 LANGUAGE PLPGSQL; 
 
+DROP TRIGGER IF EXISTS update_address_geodate on tn911.address_points; 
 CREATE TRIGGER update_address_geodate before update 
    on tn911.address_points FOR EACH ROW 
    WHEN (old.geom::text is distinct from new.geom::text) 
@@ -85,6 +90,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_address_label on tn911.address_points; 
 CREATE TRIGGER update_address_label BEFORE insert or update
     ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
     tn911.address_func_label();
@@ -103,6 +109,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_address_location on tn911.address_points; 
 CREATE TRIGGER update_address_location BEFORE insert or update
     ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
     tn911.address_func_location();
@@ -117,6 +124,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_address_attdate on tn911.address_points; 
 CREATE TRIGGER update_address_attdate before update
    on tn911.address_points FOR EACH ROW
    WHEN (old.r_segid is distinct from new.a_segid OR
@@ -152,12 +160,10 @@ CREATE TRIGGER update_address_attdate before update
 
 /* next up is Centerlines */ 
 
-
---update the centerline geodate
-
-CREATE TRIGGER update_address_oirid BEFORE insert
-    ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
-    tn911.address_func_oirid();
+DROP TRIGGER IF EXISTS update_address_oirid on tn911.centerlines; 
+CREATE TRIGGER update_centerlines_oirid BEFORE insert
+    ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
+    tn911.centerlines_func_oirid();
 
 CREATE OR REPLACE FUNCTION tn911.centerlines_func_oirid()
 RETURNS TRIGGER AS $$
@@ -179,6 +185,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_centerlines_geodate on tn911.centerlines; 
 CREATE TRIGGER update_centerline_geodate BEFORE insert
     ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
     tn911.centerline_func_geodate();
@@ -195,6 +202,7 @@ END;
 $$
 LANGUAGE PLPGSQL; 
 
+DROP TRIGGER IF EXISTS update_centerlines_attdate on tn911.centerlines; 
 CREATE TRIGGER update_centerlines_attdate before update 
    on tn911.centerlines FOR EACH ROW 
    WHEN (old.l_f_add is distinct from new.l_f_add OR
@@ -247,6 +255,7 @@ END;
 $$
 LANGUAGE PLPGSQL; 
 
+DROP TRIGGER IF EXISTS update_centerlines_segid on tn911.centerlines; 
 CREATE TRIGGER update_centerlines_segid before insert  
    on tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE 
    tn911.centerlines_func_segid();  
@@ -261,6 +270,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+DROP TRIGGER IF EXISTS update_centerlines_street on tn911.centerlines; 
 CREATE TRIGGER update_centerlines_street BEFORE insert or update
     ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
     tn911.centerlines_func_street();
@@ -280,6 +290,7 @@ $$
 LANGUAGE PLPGSQL;
 
 
+DROP TRIGGER IF EXISTS update_esn_geodate on tn911.esn; 
 CREATE TRIGGER update_esn_geodate BEFORE update
     ON tn911.esn FOR EACH ROW 
     WHEN (old.geom::text is distinct from new.geom::text) 
@@ -289,7 +300,6 @@ CREATE TRIGGER update_esn_geodate BEFORE update
 --=================================================================================================
 --Notifications which need to be added to QGIS 
 --=================================================================================================
---Set up notify for QGIS 
 
 CREATE OR REPLACE FUNCTION public.notify_qgis() RETURNS trigger
     LANGUAGE plpgsql
@@ -299,14 +309,17 @@ CREATE OR REPLACE FUNCTION public.notify_qgis() RETURNS trigger
         END;
     $$;
 
+DROP TRIGGER IF EXISTS notify_qgis_address_edit on tn911.address_points; 
 CREATE TRIGGER notify_qgis_address_edit
   AFTER INSERT OR UPDATE OR DELETE ON tn911.address_points
     FOR EACH STATEMENT EXECUTE PROCEDURE public.notify_qgis();
 
+DROP TRIGGER IF EXISTS notify_qgis_centerlines_edit on tn911.centerlines; 
 CREATE TRIGGER notify_qgis_centerlines_edit
   AFTER INSERT OR UPDATE OR DELETE ON tn911.centerlines
     FOR EACH STATEMENT EXECUTE PROCEDURE public.notify_qgis();
 
+DROP TRIGGER IF EXISTS notify_qgis_esn_edit on tn911.esn; 
 CREATE TRIGGER notify_qgis_esn_edit
   AFTER INSERT OR UPDATE OR DELETE ON tn911.esn
     FOR EACH STATEMENT EXECUTE PROCEDURE public.notify_qgis();
