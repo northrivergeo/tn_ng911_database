@@ -16,7 +16,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
-DROP TRIGGER IF EXISTS update_address_oirid on address_points; 
+DROP TRIGGER IF EXISTS update_address_oirid on tn911.address_points; 
 CREATE TRIGGER update_address_oirid BEFORE insert
     ON tn911.address_points FOR EACH ROW EXECUTE PROCEDURE
     tn911.address_func_oirid();
@@ -160,11 +160,6 @@ CREATE TRIGGER update_address_attdate before update
 
 /* next up is Centerlines */ 
 
-DROP TRIGGER IF EXISTS update_address_oirid on tn911.centerlines; 
-CREATE TRIGGER update_centerlines_oirid BEFORE insert
-    ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
-    tn911.centerlines_func_oirid();
-
 CREATE OR REPLACE FUNCTION tn911.centerlines_func_oirid()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -174,6 +169,11 @@ BEGIN
 END;
 $$
 LANGUAGE PLPGSQL;
+
+DROP TRIGGER IF EXISTS update_centerlines_oirid on tn911.centerlines; 
+CREATE TRIGGER update_centerlines_oirid BEFORE insert
+    ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
+    tn911.centerlines_func_oirid();
 
 --update centerline geodate
 CREATE OR REPLACE FUNCTION tn911.centerline_func_geodate()
@@ -185,7 +185,7 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
-DROP TRIGGER IF EXISTS update_centerlines_geodate on tn911.centerlines; 
+DROP TRIGGER IF EXISTS update_centerline_geodate on tn911.centerlines; 
 CREATE TRIGGER update_centerline_geodate BEFORE insert
     ON tn911.centerlines FOR EACH ROW EXECUTE PROCEDURE
     tn911.centerline_func_geodate();
