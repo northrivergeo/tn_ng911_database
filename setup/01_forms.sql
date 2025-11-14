@@ -690,36 +690,3 @@ insert into tn911.attsrc_tbl (attsrc, description) values ('CHECKED WITH EXISTIN
 insert into tn911.attsrc_tbl (attsrc, description) values ('FIELD VERIFICATION', 'FIELD VERIFICATION'); 
 insert into tn911.attsrc_tbl (attsrc, description) values ('IMAGERY VERIFICATION', 'IMAGERY VERIFICATION'); 
 insert into tn911.attsrc_tbl (attsrc, description) values ('SPELLING CORRECTION', 'SPELLING CORRECTION'); 
-
-
-DROP TABLE IF EXISTS tn911.unit_tbl; 
-create table tn911.unit_tbl ( 
-	unit varchar(4) primary key,
-	description varchar(24)
-        ); 
-
-insert into tn911.unit_tbl (unit, description) values ('APT', 'APARTMENT'); 
-insert into tn911.unit_tbl (unit, description) values ('BSMT', 'BASEMENT'); 
-insert into tn911.unit_tbl (unit, description) values ('BLDG', 'BUILDING'); 
-insert into tn911.unit_tbl (unit, description) values ('DEPT', 'DEPARTMENT');
-insert into tn911.unit_tbl (unit, description) values ('FL', 'FLOOR');
-insert into tn911.unit_tbl (unit, description) values ('FRNT', 'FRONT');
-insert into tn911.unit_tbl (unit, description) values ('HNGR', 'HANGAR');
-insert into tn911.unit_tbl (unit, description) values ('LBBY', 'LOBBY');
-insert into tn911.unit_tbl (unit, description) values ('LOT', 'LOT');
-insert into tn911.unit_tbl (unit, description) values ('LOWR', 'LOWER');
-insert into tn911.unit_tbl (unit, description) values ('OFC', 'OFFICE');
-insert into tn911.unit_tbl (unit, description) values ('PH', 'PENTHOUSE');
-insert into tn911.unit_tbl (unit, description) values ('PIER', 'PIER');
-insert into tn911.unit_tbl (unit, description) values ('REAR', 'REAR');
-insert into tn911.unit_tbl (unit, description) values ('RM', 'ROOM');
-insert into tn911.unit_tbl (unit, description) values ('SIDE', 'SIDE');
-insert into tn911.unit_tbl (unit, description) values ('SLIP', 'SLIP');
-insert into tn911.unit_tbl (unit, description) values ('SPC', 'SPACE');
-insert into tn911.unit_tbl (unit, description) values ('STOP', 'STOP');
-insert into tn911.unit_tbl (unit, description) values ('STE', 'SUITE');
-insert into tn911.unit_tbl (unit, description) values ('TRLR', 'TRAILER');
-insert into tn911.unit_tbl (unit, description) values ('UNIT', 'UNIT');
-insert into tn911.unit_tbl (unit, description) values ('UPPR', 'UPPER');
-insert into tn911.unit_tbl (unit, description) values ('GAR', 'GARAGE');
-insert into tn911.unit_tbl (unit, description) values ('OTH', 'OTHER');

@@ -9,7 +9,7 @@
 CREATE OR REPLACE FUNCTION tn911.address_func_oirid()
 RETURNS TRIGGER AS $$
 BEGIN
-   NEW.oirid = 'COUNTY'||'_'||new.id;
+   NEW.oirid = 'COUNTY'||'_'||new.ogc_fid;
    NEW.editor = current_user;
    RETURN NEW;
 END;
@@ -44,7 +44,7 @@ CREATE TRIGGER update_address_gpsdate BEFORE insert
 CREATE OR REPLACE FUNCTION tn911.address_func_esn()
 RETURNS TRIGGER AS $$ 
 BEGIN
-   NEW.esn := (select esn from tn911.esn where st_within(new.geom, geom)); 
+   NEW.esn := (select esn from tn911.esn where st_within(new.wkb_geometry, wkb_geometry)); 
    RETURN NEW;
 END;
 $$
@@ -72,7 +72,7 @@ LANGUAGE PLPGSQL;
 DROP TRIGGER IF EXISTS update_address_geodate on tn911.address_points; 
 CREATE TRIGGER update_address_geodate before update 
    on tn911.address_points FOR EACH ROW 
-   WHEN (old.geom::text is distinct from new.geom::text) 
+   WHEN (old.wkb_geometry::text is distinct from new.wkb_geometry::text) 
    EXECUTE PROCEDURE 
    tn911.address_func_geodate();  
 
@@ -81,7 +81,7 @@ CREATE TRIGGER update_address_geodate before update
 CREATE OR REPLACE FUNCTION tn911.address_func_label()
 RETURNS TRIGGER AS $$ 
 BEGIN
-   NEW.esn := (select esn from tn911.esn where st_within(new.geom, geom));
+   NEW.esn := (select esn from tn911.esn where st_within(new.wkb_geometry, wkb_geometry));
    NEW.address := concat_ws(' ', new.stnum, new.predir,  new.pretype,  new.name, new.type, new.sufdir,  new.postmod); 
    NEW.addr_esn := concat_ws(' ', new.address,  new.esn); 
    NEW.label := initcap(new.address); 
@@ -100,10 +100,10 @@ CREATE TRIGGER update_address_label BEFORE insert or update
 CREATE OR REPLACE FUNCTION tn911.address_func_location()
 RETURNS TRIGGER AS $$ 
 BEGIN
-   NEW.x_sp := st_x(NEW.geom); 
-   NEW.y_sp := st_y(NEW.geom); 
-   NEW.lon  := st_x(st_transform(NEW.geom, 4326))::varchar(15); 
-   NEW.lat  := st_y(st_transform(NEW.geom, 4326))::varchar(15);
+   NEW.x_sp := st_x(NEW.wkb_geometry); 
+   NEW.y_sp := st_y(NEW.wkb_geometry); 
+   NEW.lon  := st_x(st_transform(NEW.wkb_geometry, 4326))::varchar(15); 
+   NEW.lat  := st_y(st_transform(NEW.wkb_geometry, 4326))::varchar(15);
    RETURN NEW;
 END;
 $$
@@ -163,7 +163,7 @@ CREATE TRIGGER update_address_attdate before update
 CREATE OR REPLACE FUNCTION tn911.centerlines_func_oirid()
 RETURNS TRIGGER AS $$
 BEGIN
-   NEW.oirid = 'COUNTY'||'_'||new.id;
+   NEW.oirid = 'COUNTY'||'_'||new.ogc_fid;
    NEW.editor = current_user;
    RETURN NEW;
 END;
@@ -249,7 +249,7 @@ CREATE TRIGGER update_centerlines_attdate before update
 CREATE OR REPLACE FUNCTION tn911.centerlines_func_segid()
 RETURNS TRIGGER AS $$ 
 BEGIN 
-   NEW.segid := new.id;
+   NEW.segid := new.ogc_fid;
    RETURN NEW;
 END; 
 $$
@@ -293,7 +293,7 @@ LANGUAGE PLPGSQL;
 DROP TRIGGER IF EXISTS update_esn_geodate on tn911.esn; 
 CREATE TRIGGER update_esn_geodate BEFORE update
     ON tn911.esn FOR EACH ROW 
-    WHEN (old.geom::text is distinct from new.geom::text) 
+    WHEN (old.wkb_geometry::text is distinct from new.wkb_geometry::text) 
     EXECUTE PROCEDURE 
     tn911.esn_func_geodate();
 

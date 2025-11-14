@@ -4,8 +4,8 @@
 
 DROP TABLE IF EXISTS tn911.address_points CASCADE; 
 CREATE TABLE tn911.address_points ( 
-	id serial primary key, 
-	geom geometry (point, 2274), 
+	ogc_fid serial primary key, 
+	wkb_geometry geometry (point, 2274), 
 	oirid varchar(20), 
 	r_segid varchar(25), 
 	a_segid varchar(25), 
@@ -116,8 +116,8 @@ comment on column tn911.address_points.delnotes is 'A notation field explaining 
 
 DROP TABLE IF EXISTS tn911.centerlines CASCADE; 
 CREATE TABLE tn911.centerlines ( 
-	id serial primary key, 
-        geom geometry (linestring, 2274),	
+	ogc_fid serial primary key, 
+        wkb_geometry geometry (linestring, 2274),	
 	oirid varchar(20), 
 	segid varchar(25), 
 	l_f_add varchar(11), 
@@ -216,8 +216,8 @@ comment on column tn911.centerlines.status is 'Defines the current lifecycle sta
 
 DROP TABLE IF EXISTS tn911.esn CASCADE;
 CREATE TABLE tn911.esn ( 
-        id serial primary key,
-        geom geometry (polygon, 2274),
+        ogc_fid serial primary key,
+        wkb_geometry geometry (polygon, 2274),
         oirid varchar(20),
 	esn varchar(3), 
 	wesn varchar(3), 
@@ -247,8 +247,8 @@ comment on column tn911.esn.ems is 'Designation for the emergency medical respon
 
 DROP TABLE IF EXISTS tn911.esb_ems CASCADE; 
 CREATE TABLE tn911.esb_ems ( 
-        id serial primary key,
-        geom geometry (polygon, 2274),
+        ogc_fid serial primary key,
+        wkb_geometry geometry (polygon, 2274),
 	discrpagid varchar(100), 
 	dateupdate timestamp, 
 	effective timestamp, 
@@ -275,8 +275,8 @@ comment on column tn911.esb_ems.servicenum is 'The number (without hyphens) that
 	                    
 DROP TABLE IF EXISTS tn911.esb_fire CASCADE; 
 CREATE TABLE tn911.esb_fire ( 
-        id serial primary key,
-        geom geometry (polygon, 2274),
+        ogc_fid serial primary key,
+        wkb_geometry geometry (polygon, 2274),
 	discrpagid varchar(100), 
 	dateupdate timestamp, 
 	effective timestamp, 
@@ -304,8 +304,8 @@ comment on column tn911.esb_fire.servicenum is 'The number (without hyphens) tha
 	                    
 DROP TABLE IF EXISTS tn911.esb_law CASCADE; 
 CREATE TABLE tn911.esb_law ( 
-        id serial primary key,
-        geom geometry (polygon, 2274),
+        ogc_fid serial primary key,
+        wkb_geometry geometry (polygon, 2274),
 	discrpagid varchar(100), 
 	dateupdate timestamp, 
 	effective timestamp, 
