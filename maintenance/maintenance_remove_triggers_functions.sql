@@ -43,3 +43,6 @@ drop function tn911.esn_func_geodate();
 
 --QGIS Notify 
 drop function public.notify_qgis();
+drop trigger IF EXISTS notify_qgis_address_edit on tn911.centerlines; 
+drop trigger IF EXISTS notify_qgis_centerlines_edit on tn911.address_points; 
+drop trigger IF EXISTS notify_qgis_esn_edit on tn911.esn; 

@@ -10,7 +10,7 @@ with esn_check as (select
    end
       from tn911.esn as e, 
            tn911.centerlines as c 
-      where st_intersects(c.geom, e.geom)) 
+      where st_intersects(c.wkb_geometry, e.wkb_geometry)) 
 select 
     oirid, 
     esn, 

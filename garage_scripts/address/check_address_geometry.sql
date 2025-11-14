@@ -6,5 +6,5 @@ SELECT
 FROM 
     tn911.address_points b,
     tn911.address_points a
-WHERE  a.geom = b.geom AND a.id > b.id group by a.id);
+WHERE  a.wkb_geometry = b.wkb_geometry AND a.id > b.id group by a.id);
 
