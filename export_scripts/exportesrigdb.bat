@@ -1,16 +1,7 @@
-IF  EXIST C:\OSGeo4W\bin SET PATH=%PATH%;C:\OSGeo4W\bin
-
-ogr2ogr -f OpenFileGDB c:\path\to\export\Template_TCSTransport.gdb c:\path\to\upload\TCSTransport.gdb
-
-ogr2ogr -f OpenFileGDB -append C:\TCSTransport\Upload\TCSTransport.gdb -nln "Addresses" PG:"host=host user=user dbname=dbname password=password" "tn911.addresses" -nln "addresses"
-
-ogr2ogr -f OpenFileGDB -append C:\TCSTransport\Upload\TCSTransport.gdb -nln "Centerlines" PG:"host=host user=user dbname=dbname password=password" "tn911.centerlines" -nln "centerlines"
-
-ogr2ogr -f OpenFileGDB -append C:\TCSTransport\Upload\TCSTransport.gdb -nln "ESN" PG:"host=host user=user dbname=dbname password=password" "tn911.esn_boundary" -nln "esn_boundary"
-
-ogr2ogr -f OpenFileGDB -append C:\TCSTransport\Upload\TCSTransport.gdb PG:"host=host user=user dbname=dbname password=password"  "tn911.esb_law" -nln "esb_law"
-
-ogr2ogr -f OpenFileGDB -append C:\TCSTransport\Upload\TCSTransport.gdb PG:"host=host user=user dbname=dbname password=password"  "tn911.esb_fire" -nln "esb_fire"
-
-ogr2ogr -f OpenFileGDB -append C:\TCSTransport\Upload\TCSTransport.gdb PG:"host=host user=user dbname=dbname password=password"  "tn911.esb_ems" -nln "esb_ems"
-
+IF EXIST "C:\Program Files\QGIS 3.34.3\bin" SET PATH=%PATH%;"C:\Program Files\QGIS 3.34.3\bin"
+rmdir /s /q C:\TCSTransport\Upload\TCSTransport.gdb
+mkdir C:\TCSTransport\Upload\TCSTransport.gdb
+xcopy /y /v /E C:\TCSTransport\TIPS\TCSTransport.gdb C:\TCSTransport\Upload\TCSTransport.gdb\.
+ogr2ogr -f OpenFileGDB -append c:\TCSTransport\upload\TCSTransport.gdb -nln "Addresses" PG:"host=xxx.xx.xxx.xx port=5432 user='user' password='password' dbname='dbase'" -sql "select ogc_fid as objectid, wkb_geometry, oirid, r_segid, a_segid, seg_side, gislink, structype, strucdesc, stnum_h, stnum_l, stnum, stnumsuf, building, floor, unit_type, unit_num, predir, pretype, name, type, sufdir, postmod, address, addr_esn, label, subname, vanity, zip, zip4, esn, city, county, state, lon, lat, x_sp, y_sp, z_val, gpsdate, addrauth, source, editor, geomod, geosrce, geodate, attmod, attsrce, attdate, status, delnotes from tn911.address_points"
+ogr2ogr -f OpenFileGDB -append c:\TCSTransport\upload\TCSTransport.gdb -nln "Centerlines" PG:"host=10.165.67.180 port=5432 user='elh1964' password='Angelfury0!' dbname='henderson911'" -sql "select ogc_fid as objectid, wkb_geometry, oirid, segid, l_f_add, l_t_add, r_f_add, r_t_add, addr_type, predir, pretype, name, type, sufdir, postmod, label, vanity, subname, nametype, cfcc, esn_l, esn_r, zip_l, zip_r, city_l, city_r, county_l, county_r, state_l, state_r, spdlimit, oneway, lanes, t_elev, f_elev, tfcost, ftcost, editor, geomod, geosrce, geodate, attmod, attsrc, attdate, status from tn911.centerlines"
+ogr2ogr -f OpenFileGDB -append c:\TCSTransport\upload\TCSTransport.gdb -nln "ESN" PG:"host=10.165.67.180 port=5432 user='elh1964' password='Angelfury0!' dbname='henderson911'" -sql "select ogc_fid as objectid, wkb_geometry, oirid, esn, wesn, vesn, srte, psapid, geodate, le, fd, ems from tn911.esn"
