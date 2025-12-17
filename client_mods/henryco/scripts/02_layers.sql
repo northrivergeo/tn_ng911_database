@@ -22,7 +22,7 @@ alter table tn911.address_points add column altsuffix varchar(2);
 --========================
 alter table tn911.centerlines add column surface varchar(50); 
 alter table tn911.centerlines add column cross_street varchar(50); 
-alter table tn911.centerlines add column connect varchar(50)
+alter table tn911.centerlines add column connect varchar(50);
 alter table tn911.centerlines add column street varchar(75); 
 alter table tn911.centerlines add column comment1 varchar(75); 
 alter table tn911.centerlines add column comment2 varchar(75); 
