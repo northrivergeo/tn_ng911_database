@@ -26,7 +26,9 @@ insert into tn911.predir_tbl (predir, description) values ('SE', 'SE');
 insert into tn911.predir_tbl (predir, description) values ('SW', 'SW');
 
 
-/* qgis tables seg_side */ 
+--========================
+--qgis tables seg_side 
+--========================
 
 DROP TABLE IF EXISTS tn911.segside_tbl; 
 create table tn911.segside_tbl (
@@ -37,7 +39,9 @@ create table tn911.segside_tbl (
 insert into tn911.segside_tbl (seg_side, description) values ('L', 'LEFT');
 insert into tn911.segside_tbl (seg_side, description) values ('R', 'RIGHT');
 
-/* qgis tables structure type */ 
+--========================
+-- qgis tables structure type 
+--========================
 
 DROP TABLE IF EXISTS tn911.strucdomain_tbl; 
 create table tn911.strucdomain_tbl ( 
@@ -213,7 +217,10 @@ insert into tn911.structype_tbl (structype, strucfk, description) values (9000, 
 insert into tn911.structype_tbl (structype, strucfk, description) values (9001, 9000, '9001-Vacant'); 
 insert into tn911.structype_tbl (structype, strucfk, description) values (9002, 9000, '9002-Unknown'); 
 
-/* C1 Street Suffix Abbreviations. Also to be used for Pre-type and PostMod */
+--========================
+-- C1 Street Suffix Abbreviations. Also to be used for Pre-type and PostMod 
+--========================
+
 DROP TABLE IF EXISTS tn911.type_tbl;
 create table tn911.type_tbl ( 
         description varchar(24),
@@ -423,7 +430,10 @@ insert into tn911.type_tbl (type, description) values ('WAYS', 'WAYS');
 insert into tn911.type_tbl (type, description) values ('WL', 'WELL');
 insert into tn911.type_tbl (type, description) values ('WLS', 'WELLS');
 
-/* qgis table unit */ 
+--========================
+-- qgis table unit 
+--========================
+
 DROP TABLE IF EXISTS tn911.unit_type_tbl; 
 create table tn911.unit_type_tbl ( 
         description varchar(24),
@@ -456,7 +466,11 @@ insert into tn911.unit_type_tbl (description, unit_type) values ('UPPER', 'UPPR'
 insert into tn911.unit_type_tbl (description, unit_type) values ('GARAGE', 'GAR'); 
 insert into tn911.unit_type_tbl (description, unit_type) values ('OTHER', 'OTH'); 
 
-/* Create Source  Table */
+
+--========================
+-- Create Source  Table 
+--========================
+
 DROP TABLE IF EXISTS tn911.source_tbl; 
 create table tn911.source_tbl ( 
 	source integer primary key,
@@ -470,7 +484,10 @@ insert into tn911.source_tbl (source, description) values (4, '4-Main entrace');
 insert into tn911.source_tbl (source, description) values (5, '5-Frontage Centroid'); 
 insert into tn911.source_tbl (source, description) values (0, '6-Undefined'); 
 
-/* Create Lifecycle Status Table */
+--========================
+-- Create Lifecycle Status Table
+--========================
+
 DROP TABLE IF EXISTS tn911.lifecyclestatus_tbl; 
 create table tn911.lifecyclestatus_tbl ( 
 	status integer primary key,
@@ -482,7 +499,10 @@ insert into tn911.lifecyclestatus_tbl (status, description) values (734, '734-PR
 insert into tn911.lifecyclestatus_tbl (status, description) values (736, '736-POTENTIAL'); 
 insert into tn911.lifecyclestatus_tbl (status, description) values (799, '799-RETIRED'); 
 
-/* Create a addr_type */
+--========================
+-- Create a addr_type 
+--========================
+
 DROP TABLE IF EXISTS tn911.addrtype_tbl; 
 create table tn911.addrtype_tbl ( 
 	type char(2) primary key,
@@ -492,7 +512,9 @@ create table tn911.addrtype_tbl (
 insert into tn911.addrtype_tbl (type, description) values ('P', 'Potential'); 
 insert into tn911.addrtype_tbl (type, description) values ('A', 'Actual'); 
 
-/* Nametype */ 
+--========================
+-- Nametype 
+--========================
 DROP TABLE IF EXISTS tn911.nametype_tbl; 
 create table tn911.nametype_tbl ( 
 	nametype integer primary key,
@@ -508,7 +530,10 @@ insert into tn911.nametype_tbl (nametype, description) values (6, '6-MSAG Name')
 insert into tn911.nametype_tbl (nametype, description) values (7, '7-Inventory Name'); 
 
 
-/* CFCC Table */
+--========================
+-- CFCC Table */
+--========================
+
 DROP TABLE IF EXISTS tn911.cfcc_tbl; 
 create table tn911.cfcc_tbl ( 
 	cfcc char(3) primary key,
@@ -570,7 +595,10 @@ insert into tn911.cfcc_tbl (cfcc, description) values ('A72', 'A72-Stairway, ste
 insert into tn911.cfcc_tbl (cfcc, description) values ('A73', 'A73-Alley, road for service vehicles, usually unnamed, located at the rear of buildings and property');
 insert into tn911.cfcc_tbl (cfcc, description) values ('A74', 'A74-Driveway or service road, usually privately owned and unnamed, used as access to residences, etc., or as access to logging areas, etc.');
 
-/* Lanes */ 
+--========================
+-- Lanes 
+--========================
+
 DROP TABLE IF EXISTS tn911.lanes_tbl; 
 create table tn911.lanes_tbl ( 
 	lanes integer primary key
@@ -590,6 +618,11 @@ insert into tn911.lanes_tbl (lanes) values (11);
 insert into tn911.lanes_tbl (lanes) values (12); 
 insert into tn911.lanes_tbl (lanes) values (13); 
 
+
+--========================
+-- Oneway Table
+--========================
+
 DROP TABLE IF EXISTS tn911.oneway_tbl; 
 create table tn911.oneway_tbl ( 
 	id serial primary key, 
@@ -603,6 +636,10 @@ insert into tn911.oneway_tbl (oneway, description) values ('T', 'One Way is TO-F
 insert into tn911.oneway_tbl (oneway, description) values ('F', 'One Way is From-To Node Direction'); 
 insert into tn911.oneway_tbl (oneway, description) values ('N', 'One Way is in Neither Direction'); 
 
+--========================
+-- Access Table
+--========================
+
 DROP TABLE IF EXISTS tn911.access_tbl; 
 create table tn911.access_tbl ( 
 	id serial primary key, 
@@ -613,6 +650,11 @@ create table tn911.access_tbl (
 insert into tn911.access_tbl (type, description) values ('ACCESS', 'Access Point'); 
 insert into tn911.access_tbl (type, description) values ('ROUTING', 'Routing Point'); 
 insert into tn911.access_tbl (type, description) values ('ACCESS AND ROUTING', 'Structure is accessed and routed from this point'); 
+
+
+--========================
+-- Point Source table
+--========================
 
 DROP TABLE IF EXISTS tn911.geosrc_tbl; 
 create table tn911.geosrc_tbl ( 
@@ -627,6 +669,10 @@ insert into tn911.geosrc_tbl (geosrc, description) values ('OTHER', 'Other');
 insert into tn911.geosrc_tbl (geosrc, description) values ('SURVEY', 'Survey'); 
 insert into tn911.geosrc_tbl (geosrc, description) values ('SITE VISIT', 'Site Visit'); 
 
+--========================
+--Generic Yes No Table 
+--========================
+
 DROP TABLE IF EXISTS tn911.yesno_tbl;
 create table tn911.yesno_tbl (
         type varchar(8) primary key,
@@ -635,6 +681,10 @@ create table tn911.yesno_tbl (
 
 insert into tn911.yesno_tbl (type, description) values ('YES', 'Yes'); 
 insert into tn911.yesno_tbl (type, description) values ('NO', 'No'); 
+
+--========================
+-- Point Adjustment Table
+--========================
 
 DROP TABLE IF EXISTS tn911.geomod_tbl; 
 create table tn911.geomod_tbl ( 
@@ -647,6 +697,9 @@ insert into tn911.geomod_tbl (geomod, description) values ('MOVED TO ROOFTOP', '
 insert into tn911.geomod_tbl (geomod, description) values ('MOVED TO FRONT DOOR', 'MOVED TO FRONT DOOR'); 
 insert into tn911.geomod_tbl (geomod, description) values ('STRUCTURE MOVED', 'STRUCTURE MOVED'); 
 
+--========================
+-- Attribute Modification Table 
+--========================
 DROP TABLE IF EXISTS tn911.attmod_tbl; 
 create table tn911.attmod_tbl ( 
 	attmod varchar(50) primary key,
@@ -656,6 +709,11 @@ create table tn911.attmod_tbl (
 insert into tn911.attmod_tbl (attmod, description) values ('CORRECTED ADDRESS', 'CORRECTED ADDRESS'); 
 insert into tn911.attmod_tbl (attmod, description) values ('CORRECTED ESN', 'CORRECTED ESN'); 
 insert into tn911.attmod_tbl (attmod, description) values ('SPELLING CORRECTION', 'SPELLING CORRECTION'); 
+
+
+--========================
+--Point Source Table 
+--========================
 
 DROP TABLE IF EXISTS tn911.attsrc_tbl; 
 create table tn911.attsrc_tbl ( 
