@@ -15,7 +15,7 @@ alter table tn911.address_points add column altprefix varchar(2);
 alter table tn911.address_points add column altname varchar(50); 
 alter table tn911.address_points add column alttype varchar(5); 
 alter table tn911.address_points add column altsuffix varchar(2); 
-
+alter table tn911.address_points rename column geom to wkb_geometry;
 
 --========================
 --Add Columns for Centerlines
@@ -36,13 +36,15 @@ alter table tn911.centerlines add column altprefix varchar(20);
 alter table tn911.centerlines add column altname varchar(50); 
 alter table tn911.centerlines add column alttype varchar(5); 
 alter table tn911.centerlines add column altsuffix varchar(2); 
+alter table tn911.centerlines rename column geom to wkb_geometry;
 
 
 --========================
 --Add Columns for esn
 --========================
-alter table tn911.esn add column "CAD-LAW" varchar(2); 
-alter table tn911.esn add column "CAD-EMS" varchar(2); 
+alter table tn911.esn add column "CAD-LAW" varchar(12); 
+alter table tn911.esn add column "CAD-EMS" varchar(12); 
+alter table tn911.esn rename column geom to wkb_geometry;
 
 
 
