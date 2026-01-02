@@ -158,7 +158,7 @@ CREATE TABLE tn911.centerlines (
 	geosrce varchar(45), 
 	geodate timestamp(3), 
 	attmod varchar(75), 
-	attsrc varchar(45), 
+	attsrce varchar(45), 
 	attdate timestamp(3),
 	status integer); 
 
